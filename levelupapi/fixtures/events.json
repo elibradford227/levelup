@@ -3,7 +3,7 @@
       "model": "levelupapi.event",
       "pk": 1,
       "fields": {
-          "game": 1,
+          "game": 2,
           "description": "Board game night",
           "date": "2024-02-27",
           "time": "2:30",

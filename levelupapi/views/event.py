@@ -59,13 +59,18 @@ class EventView(ViewSet):
         event.description = request.data["description"]
         event.date = request.data["date"]
         event.time = request.data["time"]
-        game = Game.objects.get(pk=request.data['id'])
+        game = Game.objects.get(pk=request.data['game_id'])
         event.game = game
-        organizer = Gamer.objects.get(pk=request.data['id'])
+        organizer = Gamer.objects.get(pk=request.data['organizer'])
         event.organizer = organizer
 
         event.save()
         
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    def delete(self, request, pk):
+        event = Event.objects.get(pk=pk)
+        event.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 class EventSerializer(serializers.ModelSerializer):
   
