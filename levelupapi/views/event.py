@@ -52,6 +52,21 @@ class EventView(ViewSet):
       print(request.data)
       serializer = EventSerializer(event, many=False)
       return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def update(self, request, pk):
+        
+        event = Event.objects.get(pk=pk)
+        event.description = request.data["description"]
+        event.date = request.data["date"]
+        event.time = request.data["time"]
+        game = Game.objects.get(pk=request.data['id'])
+        event.game = game
+        organizer = Gamer.objects.get(pk=request.data['id'])
+        event.organizer = organizer
+
+        event.save()
+        
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 class EventSerializer(serializers.ModelSerializer):
   
   class Meta:
