@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import include, path
 from rest_framework import routers
-from levelupapi.views import GameTypeView, EventView, GameView
+from levelupapi.views import GameTypeView, EventView, GameView, register_user, check_user
 """levelup URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -28,4 +28,6 @@ router.register(r'games', GameView, 'games')
 urlpatterns = [
     path('admin/', admin.site.urls), 
     path('', include(router.urls)),
+    path('register', register_user),
+    path('checkuser', check_user),
 ]
