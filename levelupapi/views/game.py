@@ -15,7 +15,7 @@ class GameView(ViewSet):
         Returns:
             Response -- JSON serialized game type
         """
-        game = Game.objecs.get(pk=pk)
+        game = Game.objects.get(pk=pk)
         serializer = GameSerializer(game, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
