@@ -3,8 +3,9 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from levelupapi.models import Event, Gamer, Game
-
+from levelupapi.models import Event, Gamer, Game, EventGamer
+from rest_framework.decorators import action
+from django.db.models import Q
 
 class EventView(ViewSet):
     """Level up game types view"""
@@ -65,6 +66,29 @@ class EventView(ViewSet):
         event.organizer = organizer
 
         event.save()
+        
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    @action(methods=['post'], detail=True)
+    def signup(self, request, pk):
+        """Post request for a user to sign up for an event"""
+
+        gamer = Gamer.objects.get(uid=request.data["user_id"])
+        event = Event.objects.get(pk=pk)
+        attendee = EventGamer.objects.create(
+            gamer=gamer,
+            event=event
+        )
+        return Response({'message': 'Gamer added'}, status=status.HTTP_201_CREATED)
+    
+    @action(methods=['delete'], detail=True)
+    def leave(self, request, pk):
+        """Delete request for a user to leave an event"""
+
+        gamer = Gamer.objects.get(uid=request.data["user_id"])
+        event = Event.objects.get(pk=pk)
+        eventgamer = EventGamer.objects.filter(gamer_id=gamer, event_id=event)
+        eventgamer.delete()
         
         return Response(None, status=status.HTTP_204_NO_CONTENT)
     
