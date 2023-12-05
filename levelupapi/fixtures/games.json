@@ -1,9 +1,9 @@
 [
   {
       "model": "levelupapi.game",
-      "pk": 1,
+      "pk": 2,
       "fields": {
-          "game_type": 1,
+          "game_type": 2,
           "title": "Board game night",
           "maker": "Me",
           "gamer": "1",

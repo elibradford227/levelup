@@ -1,10 +1,10 @@
 [
   {
       "model": "levelupapi.event",
-      "pk": 1,
+      "pk": 2,
       "fields": {
           "game": 2,
-          "description": "Board game night",
+          "description": "Board game DAY",
           "date": "2024-02-27",
           "time": "2:30",
           "organizer": 1
